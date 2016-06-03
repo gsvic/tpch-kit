@@ -2,8 +2,7 @@
 -- TPC-H/TPC-R Shipping Modes and Order Priority Query (Q12)
 -- Functional Query Definition
 -- Approved February 1998
-:x
-:o
+
 select
 	l_shipmode,
 	sum(case
@@ -32,4 +31,3 @@ group by
 	l_shipmode
 order by
 	l_shipmode;
-:n -1

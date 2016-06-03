@@ -2,8 +2,7 @@
 -- TPC-H/TPC-R Important Stock Identification Query (Q11)
 -- Functional Query Definition
 -- Approved February 1998
-:x
-:o
+
 select
 	ps_partkey,
 	sum(ps_supplycost * ps_availqty) as value
@@ -31,4 +30,3 @@ group by
 		)
 order by
 	value desc;
-:n -1
