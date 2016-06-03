@@ -1,10 +1,4 @@
--- $ID$
--- TPC-H/TPC-R Minimum Cost Supplier Query (Q2)
--- Functional Query Definition
--- Approved February 1998
-:x
-:o
-select
+SELECT
 	s_acctbal,
 	s_name,
 	n_name,
@@ -13,38 +7,37 @@ select
 	s_address,
 	s_phone,
 	s_comment
-from
+FROM
 	part,
 	supplier,
 	partsupp,
 	nation,
 	region
-where
+WHERE
 	p_partkey = ps_partkey
-	and s_suppkey = ps_suppkey
-	and p_size = :1
-	and p_type like '%:2'
-	and s_nationkey = n_nationkey
-	and n_regionkey = r_regionkey
-	and r_name = ':3'
-	and ps_supplycost = (
-		select
+	AND s_suppkey = ps_suppkey
+	AND p_size = :1
+	AND p_type LIKE '%:2'
+	AND s_nationkey = n_nationkey
+	AND n_regionkey = r_regionkey
+	AND r_name = ':3'
+	AND ps_supplycost = (
+		SELECT
 			min(ps_supplycost)
-		from
+		FROM
 			partsupp,
 			supplier,
 			nation,
 			region
-		where
+		WHERE
 			p_partkey = ps_partkey
-			and s_suppkey = ps_suppkey
-			and s_nationkey = n_nationkey
-			and n_regionkey = r_regionkey
-			and r_name = ':3'
+			AND s_suppkey = ps_suppkey
+			AND s_nationkey = n_nationkey
+			AND n_regionkey = r_regionkey
+			AND r_name = ':3'
 	)
-order by
-	s_acctbal desc,
+ORDER BY
+	s_acctbal DESC,
 	n_name,
 	s_name,
 	p_partkey;
-:n 100
